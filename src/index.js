@@ -1,4 +1,5 @@
 import Escena1 from "./scenes/Escena1.js"
+import Escena2 from "./scenes/Escena2.js"
 
 
 let config = {
@@ -14,7 +15,7 @@ let config = {
         }
     },
 
-    scene:[Escena1]
+    scene:[Escena1, Escena2]
 
 };
 
