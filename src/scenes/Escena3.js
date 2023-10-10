@@ -127,7 +127,6 @@ class Escena3 extends Phaser.Scene{
         this.life -= 0.5;
         this.lifeText.setText('life: ' + this.life);
         if(this.life <= 0){
-            //this.scene.start('gameOver',{score:this.score});
             gameOver=true;
             }
     }
@@ -139,12 +138,11 @@ class Escena3 extends Phaser.Scene{
              gameOver=true;
              }
      }
-    impact(player, bossShoot){
+    impact(player, bossShoot){  // Colisión entre el disparo del boss y el player
         bossShoot.disableBody(true,true);
         this.life -= 5;
         this.lifeText.setText('life: ' + this.life);
         if(this.life <= 0){
-            //this.scene.start('gameOver',{score:this.score});
             gameOver=true;
             }
     }
