@@ -14,7 +14,7 @@ class Escena1 extends Phaser.Scene{
         let audio = this.sound.add('sonido', {loop: true});
         this.input.keyboard.on('keydown-SPACE', function () {
             // Cambiar a la Escena2
-            this.scene.start('Escena2');
+            this.scene.start('Escena3');
             audio.play();
         }, this);
     }

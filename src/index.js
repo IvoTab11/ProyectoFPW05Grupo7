@@ -1,5 +1,6 @@
 import Escena1 from "./scenes/Escena1.js"
 import Escena2 from "./scenes/Escena2.js"
+import Escena3 from "./scenes/Escena3.js";
 
 
 let config = {
@@ -11,11 +12,11 @@ let config = {
         default: 'arcade',
         arcade: {
             gravity: {y:0},
-            debug: false
+            debug: true
         }
     },
 
-    scene:[Escena1, Escena2]
+    scene:[Escena1, Escena2, Escena3]
 
 };
 
