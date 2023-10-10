@@ -69,9 +69,9 @@ class Escena3 extends Phaser.Scene{
 
         this.cursors = this.input.keyboard.createCursorKeys();
             
-        this.lifeText = this.add.text(16, 16, 'life:' + this.life , { fontSize: '24px', fill: '#000' }); 
-        this.scoreText = this.add.text(16, 40, 'score: 0', { fontSize: '24px', fill: '#000' }); 
-        this.bossLifeText = this.add.text(550,16, 'boss life:' + this.bossLife, {fontSize: '24px', fill: '#000'})
+        this.lifeText = this.add.text(16, 16, 'life:' + this.life , { fontSize: '24px', fill: '#FFF' }); 
+        this.scoreText = this.add.text(16, 40, 'score: 0', { fontSize: '24px', fill: '#FFF' }); 
+        this.bossLifeText = this.add.text(550,16, 'boss life:' + this.bossLife, {fontSize: '24px', fill: '#FFF'})
         this.physics.add.overlap(this.player, this.boss, this.collide, null, this); 
         this.physics.add.overlap(this.Shoot, this.boss, this.collideShoot, null, this);       
 
@@ -135,7 +135,7 @@ class Escena3 extends Phaser.Scene{
          this.bossLife -= 10;
          this.bossLifeText.setText('life: ' + this.bossLife);
          if(this.bossLife <= 0){
-             gameOver=true;
+            this.scene.start('Escena4');
              }
      }
     impact(player, bossShoot){  // Colisión entre el disparo del boss y el player

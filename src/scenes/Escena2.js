@@ -10,7 +10,7 @@ class Escena2 extends Phaser.Scene{
     }
 
     preload(){
-        this.load.image('sky', '../public/img/sky.png')
+        this.load.image('sky', '../public/img/sky.jpg')
         this.load.spritesheet('nave', '../public/img/nave.png', { frameWidth: 70, frameHeight: 62 });
         this.load.image('red', '../public/img/red.png')
         this.load.image('bullet', '../public/img/shoot.png')
@@ -66,8 +66,8 @@ class Escena2 extends Phaser.Scene{
     this.cursors = this.input.keyboard.createCursorKeys();
         
     //Ubica y define el color y el tamaño de el puntaje y la vida del player en la pantalla 
-    this.lifeText = this.add.text(16, 16, 'life:' + this.life , { fontSize: '24px', fill: '#000' }); 
-    this.scoreText = this.add.text(16, 40, 'score: 0', { fontSize: '24px', fill: '#000' }); 
+    this.lifeText = this.add.text(16, 16, 'life:' + this.life , { fontSize: '24px', fill: '#FFF' }); 
+    this.scoreText = this.add.text(16, 40, 'score: 0', { fontSize: '24px', fill: '#FFF' }); 
 
     this.input.keyboard.on('keydown-A', event =>//Indicamos que si se presiona la tecla 'A' el player va a disparar
     {
@@ -141,7 +141,7 @@ class Escena2 extends Phaser.Scene{
             this.life -= 25;
             this.lifeText.setText('life: ' + this.life + '%');
             if(this.life <= 0){
-            this.scene.start('Escena3');//Celi Aca va la escena de que perdio :/
+            this.scene.start('Escena5');
                   }
             }       
 }
