@@ -16,6 +16,7 @@ class Escena1 extends Phaser.Scene{
             // Cambiar a la Escena2
             this.scene.start('Escena2');
             audio.play();
+            audio.seek=7;
         }, this);
     }
 

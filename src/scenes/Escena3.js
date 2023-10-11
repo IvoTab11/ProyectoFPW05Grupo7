@@ -78,6 +78,7 @@ class Escena3 extends Phaser.Scene{
         this.input.keyboard.on('keydown-A', event =>
         {
             this.Shoot.create(this.player.x,this.player.y,'bullet').setVelocityX(300);
+            sonidoDisparo.play();
         });
 
     }
