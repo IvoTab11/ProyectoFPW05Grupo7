@@ -19,7 +19,7 @@ class Escena2 extends Phaser.Scene{
     }
     create(){
         this.add.image(400, 300, 'sky');
-        let sonidoDisparo = this.sound.add('disparo', {volume: 0.1});
+        this.sonidoDisparo = this.sound.add('disparo', {volume: 0.1});
         let particles = this.add.particles(0,0,'red',{
             speed:100,
             angle:{min:150,max:210},
@@ -73,7 +73,7 @@ class Escena2 extends Phaser.Scene{
     this.input.keyboard.on('keydown-A', event =>//Indicamos que si se presiona la tecla 'A' el player va a disparar
     {
         this.Shoot.create(this.player.x,this.player.y,'bullet').setVelocityX(300);
-        sonidoDisparo.play();
+        this.sonidoDisparo.play();
         //sonidoDisparo.volume -= 0.5;
     });
 
@@ -134,7 +134,7 @@ class Escena2 extends Phaser.Scene{
             this.score += 10;
             this.scoreText.setText('Score: ' + this.score);
             if(this.score > 250){
-            this.scene.start('Escena3'); //Celi esta pasa al level de Nico osea no la toques D:<
+            this.scene.start('Escena3', {sonidoDisparo:this.sonidoDisparo}); //Celi esta pasa al level de Nico osea no la toques D:<
 
               }
         }
