@@ -20,10 +20,14 @@ class Escena3 extends Phaser.Scene{
         this.load.image('shootEnemy', '../public/img/shootEnemy.png')
 
     }
-
-    create(data){
-        this.add.image(400, 300, 'sky');
+    init(data){
         this.sonidoDisparo = data.sonidoDisparo;
+        this.score=data.score;
+    } 
+
+    create(){
+        this.add.image(400, 300, 'sky');
+        
         let particles = this.add.particles(0,0,'red',{
             speed:100,
             angle:{min:150,max:210},
@@ -36,7 +40,7 @@ class Escena3 extends Phaser.Scene{
         particles.startFollow(this.player);
         this.Shoot = this.physics.add.group();
         this.time.addEvent({
-            delay: 2000,
+            delay: 200,
             callback: () => {
                 this.createBossShoots();
             },
@@ -70,23 +74,31 @@ class Escena3 extends Phaser.Scene{
 
         this.cursors = this.input.keyboard.createCursorKeys();
             
-        this.lifeText = this.add.text(16, 16, 'life:' + this.life , { fontSize: '24px', fill: '#FFF' }); 
-        this.scoreText = this.add.text(16, 40, 'score: 0', { fontSize: '24px', fill: '#FFF' }); 
+        this.lifeText = this.add.text(16, 16, 'life:' + this.life , { fontSize: '24px', fill: '#FFF' });  
         this.bossLifeText = this.add.text(550,16, 'boss life:' + this.bossLife, {fontSize: '24px', fill: '#FFF'})
         this.physics.add.overlap(this.player, this.boss, this.collide, null, this); 
         this.physics.add.overlap(this.Shoot, this.boss, this.collideShoot, null, this);       
 
-        this.input.keyboard.on('keydown-A', event =>
-        {
-            this.Shoot.create(this.player.x,this.player.y,'bullet').setVelocityX(300);
-            this.sonidoDisparo.play();
-        });
+        let lastShootTime=0;
+            const cooldown = 300;
+    this.input.keyboard.on('keydown-A', event =>//Indicamos que si se presiona la tecla 'A' el player va a disparar
+    {
+        const currentTime = new Date().getTime();
+        if( currentTime - lastShootTime >= cooldown){
+        this.Shoot.create(this.player.x,this.player.y,'bullet').setVelocityX(300);
+        this.sonidoDisparo.play();
+    
+        lastShootTime = currentTime;
+    }
+        //sonidoDisparo.volume -= 0.5;
+    });
+
 
     }
     createBossShoots() {
         let bossShootGroup = this.physics.add.group();
         let shootHorizontalDistance = 500;
-        for (let i = 0; i < 10; i++){
+        for (let i = 0; i < 1; i++){
             let shootHeightPosition= Phaser.Math.Between(100,500);
             let bossShoot = bossShootGroup.create(shootHorizontalDistance, shootHeightPosition, 'shootEnemy');
             this.shootHorizontalDistance = shootHorizontalDistance + 300;
@@ -129,15 +141,22 @@ class Escena3 extends Phaser.Scene{
         this.life -= 0.5;
         this.lifeText.setText('life: ' + this.life);
         if(this.life <= 0){
+            this.bossLife=700;
+            this.life=100;
+            this.score=0;
             this.sound.stopAll();
-            gameOver=true;
+            this.scene.start('Escena5');
+           // gameOver=true;
             }
     }
     collideShoot(Shoot, boss) { //Colisión entre el disparo y el boss
          Shoot.disableBody(true, true);
          this.bossLife -= 10;
-         this.bossLifeText.setText('life: ' + this.bossLife);
+         this.bossLifeText.setText('boss life: ' + this.bossLife);
          if(this.bossLife <= 0){
+            this.bossLife=700;
+            this.life=100;
+            this.score=0;
             this.sound.stopAll();
             this.scene.start('Escena4');
              }
@@ -147,8 +166,12 @@ class Escena3 extends Phaser.Scene{
         this.life -= 5;
         this.lifeText.setText('life: ' + this.life);
         if(this.life <= 0){
+            this.bossLife=700;
+            this.life=100;
+            this.score=0;
             this.sound.stopAll();
-            gameOver=true;
+            this.scene.start('Escena5');
+            //gameOver=true;
             }
     }
 

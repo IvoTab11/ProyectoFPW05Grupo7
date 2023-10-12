@@ -32,7 +32,7 @@ class Escena2 extends Phaser.Scene{
     particles.startFollow(this.player);
     this.Shoot = this.physics.add.group();
     this.time.addEvent({ //Indica la accion que se repetira cada 1500 milisegundos
-        delay: 1500,
+        delay: 200,
         callback: () => {
             this.createEnemies();
         },
@@ -67,13 +67,19 @@ class Escena2 extends Phaser.Scene{
     this.cursors = this.input.keyboard.createCursorKeys();
         
     //Ubica y define el color y el tamaño de el puntaje y la vida del player en la pantalla 
-    this.lifeText = this.add.text(16, 16, 'life:' + this.life , { fontSize: '24px', fill: '#FFF' }); 
-    this.scoreText = this.add.text(16, 40, 'score: 0', { fontSize: '24px', fill: '#FFF' }); 
-
+    this.lifeText = this.add.text(16, 16, 'life:' + this.life + '%' , { fontSize: '24px', fill: '#FFF' }); 
+    this.scoreText = this.add.text(16, 40, 'score: '+ this.score, { fontSize: '24px', fill: '#FFF' }); 
+            let lastShootTime=0;
+            const cooldown = 500;
     this.input.keyboard.on('keydown-A', event =>//Indicamos que si se presiona la tecla 'A' el player va a disparar
     {
+        const currentTime = new Date().getTime();
+        if( currentTime - lastShootTime >= cooldown){
         this.Shoot.create(this.player.x,this.player.y,'bullet').setVelocityX(300);
         this.sonidoDisparo.play();
+    
+        lastShootTime = currentTime;
+    }
         //sonidoDisparo.volume -= 0.5;
     });
 
@@ -82,7 +88,7 @@ class Escena2 extends Phaser.Scene{
     createEnemies() {// Creador de enemigos, actualiza su posicion y los destruye
         let enemyGroup = this.physics.add.group();
         let enemiesHorizontalDistance = 790;
-        for (let i = 0; i < 7; i++){
+        for (let i = 0; i < 1; i++){
             let enemiesHeightPosition= Phaser.Math.Between(20,580);
             let enemies = enemyGroup.create(enemiesHorizontalDistance, enemiesHeightPosition, 'enemy');
             this.enemiesHorizontalDistance = enemiesHorizontalDistance + 300;
@@ -134,7 +140,9 @@ class Escena2 extends Phaser.Scene{
             this.score += 10;
             this.scoreText.setText('Score: ' + this.score);
             if(this.score > 250){
-            this.scene.start('Escena3', {sonidoDisparo:this.sonidoDisparo}); //Celi esta pasa al level de Nico osea no la toques D:<
+                this.life=100;
+                this.score=0;
+                this.scene.start('Escena3', {sonidoDisparo:this.sonidoDisparo},{score:this.score}); //Celi esta pasa al level de Nico osea no la toques D:<
 
               }
         }
@@ -144,6 +152,8 @@ class Escena2 extends Phaser.Scene{
             this.life -= 25;
             this.lifeText.setText('life: ' + this.life + '%');
             if(this.life <= 0){
+                this.life=100;
+                this.score=0;
                 this.sound.stopAll();
                 this.scene.start('Escena5');
                   }
