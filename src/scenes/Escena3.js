@@ -129,6 +129,7 @@ class Escena3 extends Phaser.Scene{
         this.life -= 0.5;
         this.lifeText.setText('life: ' + this.life);
         if(this.life <= 0){
+            this.sound.stopAll();
             gameOver=true;
             }
     }
@@ -137,6 +138,7 @@ class Escena3 extends Phaser.Scene{
          this.bossLife -= 10;
          this.bossLifeText.setText('life: ' + this.bossLife);
          if(this.bossLife <= 0){
+            this.sound.stopAll();
             this.scene.start('Escena4');
              }
      }
@@ -145,6 +147,7 @@ class Escena3 extends Phaser.Scene{
         this.life -= 5;
         this.lifeText.setText('life: ' + this.life);
         if(this.life <= 0){
+            this.sound.stopAll();
             gameOver=true;
             }
     }

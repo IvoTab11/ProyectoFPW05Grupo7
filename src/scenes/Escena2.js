@@ -144,7 +144,8 @@ class Escena2 extends Phaser.Scene{
             this.life -= 25;
             this.lifeText.setText('life: ' + this.life + '%');
             if(this.life <= 0){
-            this.scene.start('Escena5');
+                this.sound.stopAll();
+                this.scene.start('Escena5');
                   }
             }       
 }
