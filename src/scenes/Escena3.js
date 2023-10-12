@@ -21,8 +21,9 @@ class Escena3 extends Phaser.Scene{
 
     }
 
-    create(){
+    create(data){
         this.add.image(400, 300, 'sky');
+        this.sonidoDisparo = data.sonidoDisparo;
         let particles = this.add.particles(0,0,'red',{
             speed:100,
             angle:{min:150,max:210},
@@ -78,6 +79,7 @@ class Escena3 extends Phaser.Scene{
         this.input.keyboard.on('keydown-A', event =>
         {
             this.Shoot.create(this.player.x,this.player.y,'bullet').setVelocityX(300);
+            this.sonidoDisparo.play();
         });
 
     }
