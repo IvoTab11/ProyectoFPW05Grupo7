@@ -16,6 +16,26 @@ class Escena2 extends Phaser.Scene{
         this.load.image('bullet', '../public/img/shoot.png')
         this.load.image('enemy', '../public/img/enemy.png')
         this.load.audio('disparo', '../public/sounds/disparo.mp3')
+        this.load.image('001', '../public/img/001.png');
+        this.load.image('002', '../public/img/002.png');
+        this.load.image('003', '../public/img/003.png');
+        this.load.image('004', '../public/img/004.png');
+        this.load.image('005', '../public/img/005.png');
+        this.load.image('006', '../public/img/006.png');
+        this.load.image('007', '../public/img/007.png');
+        this.load.image('008', '../public/img/008.png');
+        this.load.image('009', '../public/img/009.png');
+        this.load.image('0010', '../public/img/0010.png');
+        this.load.image('0011', '../public/img/0011.png');
+        this.load.image('0012', '../public/img/0012.png');
+        this.load.image('0013', '../public/img/0013.png');
+        this.load.image('0014', '../public/img/0014.png');
+        this.load.image('0015', '../public/img/0015.png');
+        this.load.image('0016', '../public/img/0016.png');
+        this.load.image('0017', '../public/img/0017.png');
+        this.load.image('0018', '../public/img/0018.png');
+        this.load.image('0019', '../public/img/0019.png');
+        this.load.image('0020', '../public/img/0020.png');
     }
     create(){
         this.add.image(400, 300, 'sky');
@@ -65,6 +85,35 @@ class Escena2 extends Phaser.Scene{
             });
 
     this.cursors = this.input.keyboard.createCursorKeys();
+    this.anims.create({
+        key: 'explosion',
+        frames: [
+            { key: '001' },
+            { key: '002' },
+            { key: '003' },
+            { key: '004' },
+            { key: '005' },
+            { key: '006' },
+            { key: '007' },
+            { key: '008' },
+            { key: '009' },
+            { key: '0010' },
+            { key: '0011' },
+            { key: '0012' },
+            { key: '0013' },
+            { key: '0014' },
+            { key: '0015' },
+            { key: '0016' },
+            { key: '0017' },
+            { key: '0018' },
+            { key: '0019' },
+            { key: '0020' },
+            
+        ],
+        frameRate: 16, // Velocidad de la animación
+        repeat: 0 // No se repetirá
+     });
+    
         
     //Ubica y define el color y el tamaño de el puntaje y la vida del player en la pantalla 
     this.lifeText = this.add.text(16, 16, 'life:' + this.life + '%' , { fontSize: '24px', fill: '#FFF' }); 
@@ -136,6 +185,8 @@ class Escena2 extends Phaser.Scene{
 
         collideShoot(Shoot, enemies) { //Colisión entre el disparo y los enemigos
             Shoot.disableBody(true, true);
+            const explosion = this.add.sprite(enemies.x, enemies.y, '001');
+            explosion.play('explosion');
             enemies.disableBody(true,true);
             this.score += 10;
             this.scoreText.setText('Score: ' + this.score);
@@ -149,6 +200,8 @@ class Escena2 extends Phaser.Scene{
 
         impact(player, enemies){  // Colisión entre el player y los enemigos
          enemies.disableBody(true,true);
+         const explosion = this.add.sprite(enemies.x, enemies.y, '001');
+            explosion.play('explosion');
             this.life -= 25;
             this.lifeText.setText('life: ' + this.life + '%');
             if(this.life <= 0){
